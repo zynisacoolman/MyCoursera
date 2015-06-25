@@ -6,15 +6,17 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 public class ListActivity extends Activity {
-    private ListView lv;
+    private ListView lw;
     private final String httpUrl = "https://api.coursera.org/api/catalog.v1/courses?fields=name,smallIcon,";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        lv = (ListView) findViewById(R.id.lv);
-        lv.setAdapter(new courseAdapter());
+        lw=(ListView)findViewById(R.id.lw);
+        //首先获取webservice返回字符串
+        Myasynctask Myasynctask = new Myasynctask(lw,this.getApplicationContext());
+        Myasynctask.execute(httpUrl);
     }
 
 
