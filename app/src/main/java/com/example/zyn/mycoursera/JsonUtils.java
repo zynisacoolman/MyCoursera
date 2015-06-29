@@ -1,11 +1,10 @@
 package com.example.zyn.mycoursera;
 
-//import org.json.JSONArray;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 
 
 
@@ -21,6 +20,8 @@ public class JsonUtils {
      */
     public static List<courseBean> JsonUtils(String courseString) {
         List<courseBean> courses = new ArrayList<>();
+        String o="0";
+
         try {
 //            JSONObject jsonObject = new JSONObject(courseString);
 //            JSONArray jsonArray = jsonObject.getJSONArray("courses");
@@ -28,22 +29,22 @@ public class JsonUtils {
 //            {
 //                courses.add(jsonArray.getString(i));
 //            }
-            JSONObject object=JSONObject.fromObject(courseString);
-            JSONArray jsonarray = JSONArray.fromObject(object);
-            System.out.println(jsonarray);
-            List list = (List) JSONArray.toCollection(jsonarray, courseBean.class);
-            /**
-             * 下面是测试环节
-             * */
-            Iterator it = list.iterator();
-            while (it.hasNext()) {
-                courseBean p = (courseBean) it.next();
-                System.out.println(p.getName());
+
+//            JSONTokener Tooker=new JSONTokener(courseString);
+            JSONObject arr=new JSONObject(courseString);
+            String jb=arr.getString("elements");
+            JSONArray arrs=new JSONArray(jb);
+            for(int i = 0; i < arrs.length(); i++)
+            {
+                JSONObject tmp=(JSONObject)arrs.get(i);
+                courses.get(i).setName(tmp.getString("name"));
+                courses.get(i).setWorkloads(tmp.getString("Workloads"));
+                courses.get(i).setUniversities(tmp.getString("Universities"));
+                courses.get(i).setSmallIcon(tmp.getString("SmallIcon"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return courses;
     }
 }

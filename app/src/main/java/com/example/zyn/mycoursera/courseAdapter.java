@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.apache.commons.lang.ObjectUtils;
 
 import java.util.List;
 
